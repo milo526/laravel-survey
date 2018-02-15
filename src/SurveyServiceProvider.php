@@ -15,8 +15,6 @@ class SurveyServiceProvider extends ServiceProvider
                 __DIR__.'/../database/migrations/create_survey_tables.php.stub' => $this->app->databasePath()."/migrations/{$timestamp}_create_survey_tables.php",
             ], 'migrations');
         }
-
-        $this->registerModelBindings();
     }
 
     public function register()
