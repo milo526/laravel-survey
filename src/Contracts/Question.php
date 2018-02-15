@@ -2,9 +2,9 @@
 
 namespace MCesar\Survey\Contracts;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use MCesar\Survey\Contracts\Answer as AnswerContract;
 
 interface Question
@@ -47,7 +47,7 @@ interface Question
     public function getAnsweredAttribute(): bool;
 
     /**
-     * Get if the current question is required
+     * Get if the current question is required.
      *
      * @return bool
      */
@@ -69,11 +69,10 @@ interface Question
     public function default(string $old): string;
 
     /**
-     * Get if the given answer was a default answer
+     * Get if the given answer was a default answer.
      *
      * @param $value
      * @return bool
      */
     public function isDefault($value): bool;
-
 }
