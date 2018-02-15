@@ -2,11 +2,11 @@
 
 namespace MCesar\Survey\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use MCesar\Survey\Contracts\Answer as AnswerContract;
 use MCesar\Survey\Contracts\Question as QuestionContract;
 
@@ -67,8 +67,7 @@ class Question extends Model implements QuestionContract
 
     public function scopeAnswered(Builder $builder, bool $answered = true): Builder
     {
-
-        if($answered){
+        if ($answered) {
             return $builder->whereHas('answers', function ($q) {
                 $q->where('user_id', app('auth')->user()->id);
             });
@@ -82,7 +81,7 @@ class Question extends Model implements QuestionContract
     public function getAnsweredAttribute(): bool
     {
         $answer = $this->answers->where('user', app('auth')->user())->first();
-        if ($answer == null || $answer->updated_at < $this->updated_at){
+        if ($answer == null || $answer->updated_at < $this->updated_at) {
             return false;
         }
 
@@ -91,28 +90,29 @@ class Question extends Model implements QuestionContract
 
     public function getRequiredAttribute(): bool
     {
-        return $this->options["required"];
+        return $this->options['required'];
     }
 
     public function getValuesAttribute(): array
     {
-
-        return $this->options["values"];
+        return $this->options['values'];
     }
 
     public function default(string $old): string
     {
-        if(isset($old)){
-            if(is_array($old)){
+        if (isset($old)) {
+            if (is_array($old)) {
                 return array_keys($old);
             }
+
             return $old;
         }
 
         $answered = $this->userAnswer();
-        if(!is_null($answered)){
+        if (! is_null($answered)) {
             return $answered->answer;
         }
+
         return null;
     }
 
@@ -120,9 +120,10 @@ class Question extends Model implements QuestionContract
     {
         $defaults = $this->default();
 
-        if(is_array($defaults)){
+        if (is_array($defaults)) {
             return in_array($value, $defaults);
         }
+
         return $value == $defaults;
     }
 }

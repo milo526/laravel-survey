@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 interface Category
 {
-
     /**
      * Get all questions for this given category.
      *
