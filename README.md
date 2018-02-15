@@ -6,13 +6,6 @@
 
 * [Installation](#installation)
 * [Usage](#usage)
-  * [Using "direct" permissions](#using-direct-permissions-see-below-to-use-both-roles-and-permissions)
-  * [Using permissions via roles](#using-permissions-via-roles)
-  * [Using Blade directives](#using-blade-directives)
-  * [Using multiple guards](#using-multiple-guards)
-  * [Using a middleware](#using-a-middleware)
-  * [Using artisan commands](#using-artisan-commands)
-* [Unit Testing](#unit-testing)
 * [Extending](#extending)
 
 This package allows you to add a survey to your Laravel application
