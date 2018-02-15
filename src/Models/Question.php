@@ -52,12 +52,12 @@ class Question extends Model implements QuestionContract
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(config('survey.models.category'));
     }
 
     public function answers(): HasMany
     {
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(config('survey.models.answer'));
     }
 
     public function userAnswer(): AnswerContract

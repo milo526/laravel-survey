@@ -35,7 +35,7 @@ class Category extends Model implements CategoryContract
 
     public function questions(): HasMany
     {
-        return $this->hasMany(Question::class);
+        return $this->hasMany(config('survey.models.question'));
     }
 
     public function getCompletionAttribute(): float

@@ -30,11 +30,11 @@ class Answer extends Model implements AnswerContract
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(config('survey.models.user'));
     }
 
     public function question(): BelongsTo
     {
-        return $this->belongsTo(Question::class);
+        return $this->belongsTo(config('survey.models.question'));
     }
 }
