@@ -4,7 +4,7 @@ namespace MCesar\Survey;
 
 use Illuminate\Support\ServiceProvider;
 
-class PermissionServiceProvider extends ServiceProvider
+class SurveyServiceProvider extends ServiceProvider
 {
     public function boot()
     {
