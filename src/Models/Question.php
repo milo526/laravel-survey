@@ -5,9 +5,12 @@ namespace MCesar\Survey\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use MCesar\Survey\Contracts\Answer as AnswerContract;
+use MCesar\Survey\Contracts\Question as QuestionContract;
 
-class Question extends Model
+class Question extends Model implements QuestionContract
 {
     use SoftDeletes;
 
@@ -47,40 +50,22 @@ class Question extends Model
         'options' => 'array',
     ];
 
-    /**
-     * The category in which this question is placed.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(config('survey.models.category'));
     }
 
-    /**
-     * Get all answers to this given question.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function answers(): BelongsTo
+    public function answers(): HasMany
     {
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(config('survey.models.answer'));
     }
 
-    /**
-     * Get the answer belonging to the current user.
-     * @return MCesar\Survey\Models\Answer
-     */
-    public function userAnswer(){
+    public function userAnswer(): AnswerContract
+    {
         return $this->answers->where('user_id', app('auth')->user()->id)->first();
     }
 
-    /**
-     * Only return questions which does/doesn't have an answer from the current user.
-     *
-     * @param Builder $builder
-     * @param bool $answered
-     * @return Builder|static
-     */
-    public function scopeAnswered(Builder $builder, $answered = true): Builder
+    public function scopeAnswered(Builder $builder, bool $answered = true): Builder
     {
 
         if($answered){
@@ -94,11 +79,6 @@ class Question extends Model
         }
     }
 
-    /**
-     * Get if the current user has given an answer to this question after its last edit.
-     *
-     * @return bool
-     */
     public function getAnsweredAttribute(): bool
     {
         $answer = $this->answers->where('user', app('auth')->user())->first();
@@ -109,31 +89,17 @@ class Question extends Model
         return true;
     }
 
-    /**
-     * Get if the current question is required
-     * @return bool
-     */
     public function getRequiredAttribute(): bool
     {
         return $this->options["required"];
     }
 
-    /**
-     * Get the possible values for this question.
-     *
-     * @return []
-     */
     public function getValuesAttribute(): array
     {
 
         return $this->options["values"];
     }
 
-    /**
-     * Get the default item that should be used for this question.
-     *
-     * @return string
-     */
     public function default(string $old): string
     {
         if(isset($old)){
@@ -150,12 +116,6 @@ class Question extends Model
         return null;
     }
 
-    /**
-     * Get if the given answer was a default answer
-     *
-     * @param $value
-     * @return bool
-     */
     public function isDefault($value): bool
     {
         $defaults = $this->default();

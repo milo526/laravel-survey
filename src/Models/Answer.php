@@ -5,8 +5,9 @@ namespace MCesar\Survey\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use MCesar\Survey\Contracts\Answer as AnswerContract;
 
-class Answer extends Model
+class Answer extends Model implements AnswerContract
 {
     use SoftDeletes;
     /**
@@ -27,21 +28,13 @@ class Answer extends Model
         'answer' => 'array',
     ];
 
-    /**
-     * The user who gave this answer.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function user(): BelongsTo
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(config('survey.models.user'));
     }
 
-    /**
-     * The question for which this is an answer.
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function question(): BelongsTo
     {
-        return $this->belongsTo(Question::class);
+        return $this->belongsTo(config('survey.models.question'));
     }
 }
