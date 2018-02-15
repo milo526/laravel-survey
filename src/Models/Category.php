@@ -5,8 +5,10 @@ namespace MCesar\Survey\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use MCesar\Survey\Contracts\Category as CategoryContract;
 
-class Category extends Model
+
+class Category extends Model implements CategoryContract
 {
     use SoftDeletes;
 
@@ -31,19 +33,11 @@ class Category extends Model
         'completed',
     ];
 
-    /**
-     * Get all questions for this given category.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function questions(): HasMany
     {
         return $this->hasMany(Question::class);
     }
 
-    /**
-     * Get the percentage of completed questions in this category.
-     * @return float|int
-     */
     public function getCompletionAttribute(): float
     {
         $questions = $this->questions->count();
@@ -52,10 +46,6 @@ class Category extends Model
         return ($answered / $questions) * 100;
     }
 
-    /**
-     * Get if all questions have been answered in this category.
-     * @return bool
-     */
     public function getCompletedAttribute(): bool
     {
         return $this->questions()->answered == $this->questions;
