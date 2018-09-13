@@ -37,17 +37,4 @@ class Category extends Model implements CategoryContract
     {
         return $this->hasMany(config('survey.models.question'));
     }
-
-    public function getCompletionAttribute(): float
-    {
-        $questions = $this->questions->count();
-        $answered = $this->questions()->answered()->count();
-
-        return ($answered / $questions) * 100;
-    }
-
-    public function getCompletedAttribute(): bool
-    {
-        return $this->questions()->answered == $this->questions;
-    }
 }

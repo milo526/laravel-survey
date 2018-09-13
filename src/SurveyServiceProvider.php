@@ -16,6 +16,14 @@ class SurveyServiceProvider extends ServiceProvider
                 __DIR__ . '/../config/survey.php' => config_path('survey.php'),
             ], 'config');
 
+            $this->publishes([
+                __DIR__.'/../public' => public_path('vendor/survey'),
+            ], 'public');
+
+            $this->publishes([
+                __DIR__.'/resources/views' => resource_path('views/vendor/survey'),
+            ], 'views');
+
             if (!class_exists('CreateSurveyTables')) {
                 $timestamp = date('Y_m_d_His', time());
 
@@ -24,6 +32,10 @@ class SurveyServiceProvider extends ServiceProvider
                 ], 'migrations');
             }
         }
+
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadRoutesFrom(__DIR__.'/web.php');
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'survey');
 
         $this->registerModelBindings();
     }
@@ -42,8 +54,8 @@ class SurveyServiceProvider extends ServiceProvider
     {
         $config = $this->app->config['survey.models'];
 
-        $this->app->bind(CategoryContract::class, $config['category']);
-        $this->app->bind(QuestionContract::class, $config['question']);
-        $this->app->bind(AnswerContract::class, $config['answer']);
+        $this->app->bind('category', $config['category']);
+        $this->app->bind('question', $config['question']);
+        $this->app->bind('answer', $config['answer']);
     }
 }

@@ -24,22 +24,6 @@ interface Question
     public function answers(): HasMany;
 
     /**
-     * Get the answer belonging to the current user.
-     *
-     * @return AnswerContract;
-     */
-    public function userAnswer(): AnswerContract;
-
-    /**
-     * Only return questions which does/doesn't have an answer from the current user.
-     *
-     * @param Builder $builder
-     * @param bool $answered
-     * @return Builder|static
-     */
-    public function scopeAnswered(Builder $builder, bool $answered): Builder;
-
-    /**
      * Get if the current user has given an answer to this question after its last edit.
      *
      * @return bool
@@ -58,7 +42,7 @@ interface Question
      *
      * @return []
      */
-    public function getValuesAttribute(): array;
+    public function getValuesAttribute(): ?array;
 
     /**
      * Get the default value for this answer.
@@ -66,7 +50,7 @@ interface Question
      * @param string $old
      * @return string
      */
-    public function default(string $old): string;
+    public function default(?string $old): ?string;
 
     /**
      * Get if the given answer was a default answer

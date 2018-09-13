@@ -36,7 +36,6 @@ class Question extends Model implements QuestionContract
      * @var array
      */
     protected $appends = [
-        'answered',
         'required',
         'values',
     ];
@@ -60,47 +59,18 @@ class Question extends Model implements QuestionContract
         return $this->hasMany(config('survey.models.answer'));
     }
 
-    public function userAnswer(): AnswerContract
-    {
-        return $this->answers->where('user_id', app('auth')->user()->id)->first();
-    }
-
-    public function scopeAnswered(Builder $builder, bool $answered = true): Builder
-    {
-
-        if($answered){
-            return $builder->whereHas('answers', function ($q) {
-                $q->where('user_id', app('auth')->user()->id);
-            });
-        } else {
-            return $builder->whereDoesntHave('answers', function ($q) {
-                $q->where('user_id', app('auth')->user()->id);
-            });
-        }
-    }
-
-    public function getAnsweredAttribute(): bool
-    {
-        $answer = $this->answers->where('user', app('auth')->user())->first();
-        if ($answer == null || $answer->updated_at < $this->updated_at){
-            return false;
-        }
-
-        return true;
-    }
-
     public function getRequiredAttribute(): bool
     {
         return $this->options["required"];
     }
 
-    public function getValuesAttribute(): array
+    public function getValuesAttribute(): ?array
     {
 
         return $this->options["values"];
     }
 
-    public function default(string $old): string
+    public function default(?string $old): ?string
     {
         if(isset($old)){
             if(is_array($old)){
@@ -109,9 +79,8 @@ class Question extends Model implements QuestionContract
             return $old;
         }
 
-        $answered = $this->userAnswer();
-        if(!is_null($answered)){
-            return $answered->answer;
+        if(array_has($this->options, "default")){
+            return $this->options["default"];
         }
         return null;
     }

@@ -1,7 +1,7 @@
-build
 composer.lock
+package-lock.json
+node_modules
 vendor
-tests/temp
 
 .idea
 .DS_Store
