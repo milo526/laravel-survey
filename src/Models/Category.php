@@ -14,6 +14,8 @@ class Category extends Model implements CategoryContract
 
     public $guarded = ['id'];
 
+    protected $fillable = ['title'];
+
     /**
      * The attributes that should be mutated to dates.
      *

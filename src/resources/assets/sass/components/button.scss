@@ -1,0 +1,27 @@
+.sv-btn {
+    @apply sv-font-bold sv-py-2 sv-px-4 sv-rounded sv-no-underline;
+
+    &:hover {
+        @apply sv-outline-none;
+    }
+
+    &.sv-btn-primary {
+        @apply sv-bg-blue sv-text-white;
+    }
+
+    &.sv-btn-primary:hover {
+        @apply sv-bg-blue-dark;
+    }
+
+    &.sv-btn-secondary {
+        @apply sv-bg-white sv-text-grey sv-border;
+    }
+
+    &.sv-btn-secondary:hover {
+        @apply sv-text-grey-darker sv-border-grey-darker;
+    }
+}
+
+a.sv-btn {
+    cursor: pointer;
+}

@@ -2,12 +2,10 @@
 
 namespace MCesar\Survey\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use MCesar\Survey\Contracts\Answer as AnswerContract;
 use MCesar\Survey\Contracts\Question as QuestionContract;
 
 class Question extends Model implements QuestionContract
@@ -16,10 +14,12 @@ class Question extends Model implements QuestionContract
 
     public $guarded = ['id'];
 
+    protected $fillable = ['title', 'type', 'options'];
+
     /**
      * Defines the possible question types.
      */
-    const TYPES = ['string', 'radio', 'checkbox'];
+    static $TYPES = ['text', 'radio', 'checkbox'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -67,7 +67,7 @@ class Question extends Model implements QuestionContract
     public function getValuesAttribute(): ?array
     {
 
-        return $this->options["values"];
+        return explode(',', $this->options["values"]);
     }
 
     public function default(?string $old): ?string
@@ -93,5 +93,10 @@ class Question extends Model implements QuestionContract
             return in_array($value, $defaults);
         }
         return $value == $defaults;
+    }
+
+    public static function types(): array
+    {
+        return self::$TYPES;
     }
 }

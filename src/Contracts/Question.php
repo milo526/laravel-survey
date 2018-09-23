@@ -23,12 +23,12 @@ interface Question
      */
     public function answers(): HasMany;
 
-    /**
-     * Get if the current user has given an answer to this question after its last edit.
-     *
-     * @return bool
-     */
-    public function getAnsweredAttribute(): bool;
+//    /**
+//     * Get if the current user has given an answer to this question after its last edit.
+//     *
+//     * @return bool
+//     */
+//    public function getAnsweredAttribute(): bool;
 
     /**
      * Get if the current question is required
@@ -40,7 +40,7 @@ interface Question
     /**
      * Get the possible values for this question.
      *
-     * @return []
+     * @return array|null
      */
     public function getValuesAttribute(): ?array;
 
@@ -59,5 +59,12 @@ interface Question
      * @return bool
      */
     public function isDefault($value): bool;
+
+    /**
+     * Get the available question types.
+     *
+     * @return array
+     */
+    public static function types(): array;
 
 }

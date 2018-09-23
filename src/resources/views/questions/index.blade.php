@@ -1,0 +1,1 @@
+@extends('survey::layouts.app')

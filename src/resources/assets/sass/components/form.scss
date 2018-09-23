@@ -1,0 +1,27 @@
+form .sv-form-input-group {
+    @apply sv-mb-4;
+
+    .sv-form-label {
+        @apply sv-block sv-text-grey-darker sv-text-sm sv-font-bold sv-mb-2;
+    }
+
+    .sv-form-input {
+        @apply sv-shadow sv-appearance-none sv-rounded sv-w-full sv-py-2 sv-px-3 sv-text-grey-darker sv-leading-tight;
+    }
+
+    .sv-form-input:focus {
+        @apply sv-outline-none;
+    }
+
+    &.sv-form-error {
+        @apply sv-mb-6;
+
+        .sv-form-input {
+            @apply sv-border sv-border-red sv-mb-3;
+        }
+
+        .sv-form-error-text {
+            @apply sv-text-red sv-text-xs sv-italic;
+        }
+    }
+}

@@ -1,0 +1,15 @@
+.sv-banner {
+    @apply sv-border-t sv-border-b sv-px-4 sv-py-3;
+
+    &.sv-banner-danger {
+        @apply sv-bg-red-lightest sv-border-red sv-text-red-dark;
+    }
+
+    &.sv-banner-info {
+        @apply sv-bg-blue-lightest sv-border-blue sv-text-blue-dark;
+    }
+
+    &.sv-banner-success {
+        @apply sv-bg-green-lightest sv-border-green sv-text-green-dark;
+    }
+}

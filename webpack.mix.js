@@ -25,7 +25,7 @@ if(mix.inProduction()) {
                 // Specify the locations of any files you want to scan for class names.
                 paths: glob.sync([
                     path.join(__dirname, "src/resources/views/**/*.blade.php"),
-                    path.join(__dirname, "src/resources/assets/js/**/*.vue")
+                    path.join(__dirname, "src/resources/assets/js/**")
                 ]),
                 extractors: [
                     {
