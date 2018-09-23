@@ -3,9 +3,9 @@
 namespace MCesar\Survey\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use MCesar\Survey\Contracts\Question as QuestionContract;
 
 class Question extends Model implements QuestionContract
@@ -19,7 +19,7 @@ class Question extends Model implements QuestionContract
     /**
      * Defines the possible question types.
      */
-    static $TYPES = ['text', 'radio', 'checkbox'];
+    public static $TYPES = ['text', 'radio', 'checkbox'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -61,27 +61,28 @@ class Question extends Model implements QuestionContract
 
     public function getRequiredAttribute(): bool
     {
-        return $this->options["required"];
+        return $this->options['required'];
     }
 
     public function getValuesAttribute(): ?array
     {
-
-        return explode(',', $this->options["values"]);
+        return explode(',', $this->options['values']);
     }
 
     public function default(?string $old): ?string
     {
-        if(isset($old)){
-            if(is_array($old)){
+        if (isset($old)) {
+            if (is_array($old)) {
                 return array_keys($old);
             }
+
             return $old;
         }
 
-        if(array_has($this->options, "default")){
-            return $this->options["default"];
+        if (array_has($this->options, 'default')) {
+            return $this->options['default'];
         }
+
         return null;
     }
 
@@ -89,9 +90,10 @@ class Question extends Model implements QuestionContract
     {
         $defaults = $this->default();
 
-        if(is_array($defaults)){
+        if (is_array($defaults)) {
             return in_array($value, $defaults);
         }
+
         return $value == $defaults;
     }
 

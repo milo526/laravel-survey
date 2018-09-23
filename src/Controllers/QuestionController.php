@@ -3,26 +3,29 @@
 namespace MCesar\Survey\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Validation\Rule;
-use MCesar\Survey\Facade\Question;
+use Illuminate\Routing\Controller;
 use MCesar\Survey\Facade\Category;
+use MCesar\Survey\Facade\Question;
 
 class QuestionController extends Controller
 {
-    public function index(int $category) {
+    public function index(int $category)
+    {
         $category = Category::findOrFail($category);
 
         return view('survey::categories.index', ['selected' => "categories.{$category->title}", 'category' => $category]);
     }
 
-    public function create(int $category) {
+    public function create(int $category)
+    {
         $category = Category::findOrFail($category);
 
         return view('survey::questions.create', ['selected' => "categories.{$category->title}", 'category' => $category]);
     }
 
-    public function store(Request $request, int $category) {
+    public function store(Request $request, int $category)
+    {
         $category = Category::findOrFail($category);
 
         $data = $request->validate([
@@ -43,8 +46,8 @@ class QuestionController extends Controller
         ]);
 
         $data['options'] = [
-            'values' => $data['values'] ?? "",
-            'required' => $data['required'] ?? "0",
+            'values' => $data['values'] ?? '',
+            'required' => $data['required'] ?? '0',
         ];
 
         $question = $category->questions()->create($data);
@@ -52,21 +55,24 @@ class QuestionController extends Controller
         return redirect()->route('survey::categories.questions.show', [$category, $question])->with('notification', ['type' => 'success', 'message' => 'Question created.']);
     }
 
-    public function show(int $category, int $question) {
+    public function show(int $category, int $question)
+    {
         $question = Question::findOrFail($question);
         $category = $question->category;
 
         return view('survey::questions.show', ['selected' => "categories.{$category->title}", 'category' => $category, 'question' => $question]);
     }
 
-    public function edit(int $category, int $question) {
+    public function edit(int $category, int $question)
+    {
         $question = Question::findOrFail($question);
         $category = $question->category;
 
         return view('survey::questions.edit', ['selected' => "categories.{$category->title}", 'category' => $category, 'question' => $question]);
     }
 
-    public function update(Request $request, int $category, int $question) {
+    public function update(Request $request, int $category, int $question)
+    {
         $question = Question::findOrFail($question);
 
         $data = $request->validate([
@@ -88,8 +94,8 @@ class QuestionController extends Controller
         ]);
 
         $data['options'] = [
-            'values' => $data['values'] ?? "",
-            'required' => $data['required'] ?? "0",
+            'values' => $data['values'] ?? '',
+            'required' => $data['required'] ?? '0',
         ];
 
         $question->update($data);
@@ -97,7 +103,8 @@ class QuestionController extends Controller
         return redirect()->route('survey::categories.questions.show', [$category, $question])->with('notification', ['type' => 'success', 'message' => 'Question edited.']);
     }
 
-    public function delete(int $category, int $question) {
+    public function delete(int $category, int $question)
+    {
         $question = Question::findOrFail($question);
 
         $question->delete();

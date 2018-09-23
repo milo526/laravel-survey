@@ -3,9 +3,6 @@
 namespace MCesar\Survey;
 
 use Illuminate\Support\ServiceProvider;
-use MCesar\Survey\Contracts\Answer as AnswerContract;
-use MCesar\Survey\Contracts\Category as CategoryContract;
-use MCesar\Survey\Contracts\Question as QuestionContract;
 
 class SurveyServiceProvider extends ServiceProvider
 {
@@ -13,7 +10,7 @@ class SurveyServiceProvider extends ServiceProvider
     {
         if (isNotLumen()) {
             $this->publishes([
-                __DIR__ . '/../config/survey.php' => config_path('survey.php'),
+                __DIR__.'/../config/survey.php' => config_path('survey.php'),
             ], 'config');
 
             $this->publishes([
@@ -24,18 +21,18 @@ class SurveyServiceProvider extends ServiceProvider
                 __DIR__.'/resources/views' => resource_path('views/vendor/survey'),
             ], 'views');
 
-            if (!class_exists('CreateSurveyTables')) {
+            if (! class_exists('CreateSurveyTables')) {
                 $timestamp = date('Y_m_d_His', time());
 
                 $this->publishes([
-                    __DIR__ . '/../database/migrations/create_survey_tables.php.stub' => $this->app->databasePath() . "/migrations/{$timestamp}_create_survey_tables.php",
+                    __DIR__.'/../database/migrations/create_survey_tables.php.stub' => $this->app->databasePath()."/migrations/{$timestamp}_create_survey_tables.php",
                 ], 'migrations');
             }
         }
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadRoutesFrom(__DIR__.'/web.php');
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'survey');
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'survey');
 
         $this->registerModelBindings();
     }

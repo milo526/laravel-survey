@@ -3,8 +3,8 @@
 namespace MCesar\Survey\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use MCesar\Survey\Contracts\Answer as AnswerContract;
 
 class Answer extends Model implements AnswerContract
