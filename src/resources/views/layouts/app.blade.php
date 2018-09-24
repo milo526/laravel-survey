@@ -29,11 +29,11 @@
                         Survey Admin
                     </a>
                 </div>
-                <div id="collapse" class="sv-text-white sv-border sv-border-white sv-p-2 sv-h-8 sv-rounded sm:sv-block md:sv-hidden">
+                <div id="collapse" class="sv-text-white sv-border sv-border-white sv-p-2 sv-h-8 sv-rounded sm:sv-block md:sv-hidden sv-cursor-pointer">
                     <i class="fa fa-bars" aria-hidden="true"></i>
                 </div>
             </header>
-            <ul id="menu" class="sv-flex sv-flex-col sv-list-reset sv-hidden md:sv-block">
+            <ul id="menu" class="sv-hidden sv-list-reset sv-hidden md:sv-block">
                 <li class="sv-block">
                     <a href="#" class="sv-no-underline {{ in_array('dashboard', $selected) ? $selectedColor : 'sv-text-white' }} sv-block sv-h-full sv-w-full sv-border-b sv-border-orange-darkest sv-px-8 sv-py-4 hover:sv-text-orange">
                         <i class="fa fa-tachometer sv-mr-2" aria-hidden="true"></i>
@@ -41,14 +41,14 @@
                     </a>
                 </li>
                 <li class="sv-block sv-border-b sv-border-orange-darkest">
-                    <a href="{{ route('survey::categories.index') }}" class="sv-no-underline {{ in_array('categories', $selected) ? $selectedColor : 'sv-text-white' }} sv-block sv-h-full sv-w-full sv-px-8 sv-py-4 hover:sv-text-orange">
+                    <div id="categories-menu" class="sv-no-underline {{ in_array('categories', $selected) ? $selectedColor : 'sv-text-white' }} sv-block sv-h-full sv-w-full sv-px-8 sv-py-4 hover:sv-text-orange sv-cursor-pointer">
                         <i class="fa fa-book sv-mr-2" aria-hidden="true"></i>
-                        @lang('Categories')
+                        Categories
                         <i class="fa fa-angle-down sv-float-right" aria-hidden="true"></i>
-                    </a>
-                    <ul class="sv-flex sv-flex-col sv-list-reset sv-block">
+                    </div>
+                    <ul id="categories-menu-list" class="sv-hidden sv-list-reset">
                         @foreach(\MCesar\Survey\Facade\Category::all() as $category)
-                            <li class="sv-flex sv-block">
+                            <li class="sv-block">
                                 <a href="{{ route('survey::categories.show', $category )}}" class="sv-no-underline {{ in_array($category->title, $selected) ? $selectedColor : 'sv-text-white' }} sv-block sv-h-full sv-w-full sv-ml-4 hover:sv-text-orange sv-px-8 sv-py-2">
                                     <i class="fa fa-minus sv-mr-2" aria-hidden="true"></i>
                                     {{$category->title}}
@@ -56,7 +56,7 @@
                             </li>
                         @endforeach
 
-                        <li class="sv-flex sv-block">
+                        <li class="sv-block">
                             <a href="{{ route('survey::categories.create') }}" class="sv-no-underline {{ in_array('create_new_category', $selected) ? $selectedColor : 'sv-text-white' }} sv-block sv-h-full sv-w-full sv-ml-4 hover:sv-text-orange sv-px-8 sv-py-2">
                                 <i class="fa fa-plus sv-mr-2" aria-hidden="true"></i>
                                 New
@@ -66,7 +66,7 @@
                 </li>
             </ul>
         </div>
-        <div id="content" class="sv-m-4 sv-flex-1">
+        <div id="content" class="sv-flex-1">
             @if(Session::has('notification'))
                 <div class="sv-banner sv-banner-{{ Session::get('notification')['type'] }}" role="alert">
                     {{ Session::get('notification')['message'] }}
@@ -75,5 +75,9 @@
             @yield('content')
         </div>
     </div>
+
+    <!-- Scrips -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="/vendor/survey/js/app.js"></script>
 </body>
 </html>

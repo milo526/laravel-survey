@@ -1,8 +1,8 @@
 @extends('survey::layouts.app')
 
 @section('content')
-    <div class="sv-flex">
-        <div class="sm:sv-w-full md:sv-w-1/2 sv-m-4">
+    <div class="sv-flex sv-flex-wrap md:sv-p-4">
+        <div class="sv-w-full md:sv-w-1/2">
             <div class="sv-card">
                 <div class="sv-card-header">
                     <p class="sv-card-title">{{$category->title}}</p>
@@ -10,7 +10,7 @@
                 </div>
             </div>
         </div>
-        <div class="sm:sv-w-full md:sv-w-1/2 sv-m-4">
+        <div class="sv-w-full md:sv-w-1/2">
             <div class="sv-card">
                 <div class="sv-card-header">
                     <p class="sv-card-title">Questions</p>
