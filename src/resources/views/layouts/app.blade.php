@@ -35,13 +35,13 @@
             </header>
             <ul id="menu" class="sv-flex sv-flex-col sv-list-reset sv-hidden md:sv-block">
                 <li class="sv-block">
-                    <a href="#" class="sv-no-underline {{in_array('dashboard', $selected) ? $selectedColor : "sv-text-white"}} sv-block sv-h-full sv-w-full sv-border-b sv-border-orange-darkest sv-px-8 sv-py-4 hover:sv-text-orange">
+                    <a href="#" class="sv-no-underline {{ in_array('dashboard', $selected) ? $selectedColor : 'sv-text-white' }} sv-block sv-h-full sv-w-full sv-border-b sv-border-orange-darkest sv-px-8 sv-py-4 hover:sv-text-orange">
                         <i class="fa fa-tachometer sv-mr-2" aria-hidden="true"></i>
                         Dashboard
                     </a>
                 </li>
                 <li class="sv-block sv-border-b sv-border-orange-darkest">
-                    <a href="{{route("survey::categories.index")}}" class="sv-no-underline {{in_array('categories', $selected) ? $selectedColor : "sv-text-white"}} sv-block sv-h-full sv-w-full sv-px-8 sv-py-4 hover:sv-text-orange">
+                    <a href="{{ route('survey::categories.index') }}" class="sv-no-underline {{ in_array('categories', $selected) ? $selectedColor : 'sv-text-white' }} sv-block sv-h-full sv-w-full sv-px-8 sv-py-4 hover:sv-text-orange">
                         <i class="fa fa-book sv-mr-2" aria-hidden="true"></i>
                         @lang('Categories')
                         <i class="fa fa-angle-down sv-float-right" aria-hidden="true"></i>
@@ -49,7 +49,7 @@
                     <ul class="sv-flex sv-flex-col sv-list-reset sv-block">
                         @foreach(\MCesar\Survey\Facade\Category::all() as $category)
                             <li class="sv-flex sv-block">
-                                <a href="{{route("survey::categories.show", $category)}}" class="sv-no-underline {{in_array($category->title, $selected) ? $selectedColor : "sv-text-white"}} sv-block sv-h-full sv-w-full sv-ml-4 hover:sv-text-orange sv-px-8 sv-py-2">
+                                <a href="{{ route('survey::categories.show', $category )}}" class="sv-no-underline {{ in_array($category->title, $selected) ? $selectedColor : 'sv-text-white' }} sv-block sv-h-full sv-w-full sv-ml-4 hover:sv-text-orange sv-px-8 sv-py-2">
                                     <i class="fa fa-minus sv-mr-2" aria-hidden="true"></i>
                                     {{$category->title}}
                                 </a>
@@ -57,7 +57,7 @@
                         @endforeach
 
                         <li class="sv-flex sv-block">
-                            <a href="{{route("survey::categories.create")}}" class="sv-no-underline sv-text-white sv-block sv-h-full sv-w-full sv-ml-4 hover:sv-text-orange sv-px-8 sv-py-2">
+                            <a href="{{ route('survey::categories.create') }}" class="sv-no-underline {{ in_array('create_new_category', $selected) ? $selectedColor : 'sv-text-white' }} sv-block sv-h-full sv-w-full sv-ml-4 hover:sv-text-orange sv-px-8 sv-py-2">
                                 <i class="fa fa-plus sv-mr-2" aria-hidden="true"></i>
                                 New
                             </a>

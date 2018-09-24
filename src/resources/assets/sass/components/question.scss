@@ -1,0 +1,37 @@
+.sv-question-show {
+    @apply sv-pb-2 sv-mb-2 sv-border-b-2;
+
+    display: grid;
+
+    grid-template-columns: auto 48px 48px 48px;
+    grid-template-rows: 32px;
+    grid-column-gap: 16px;
+
+    align-items: center;
+    justify-items: center;
+
+    .sv-question-title {
+        align-self: center;
+        justify-self: start;
+        grid-column: 1/2;
+
+        font-size: 24px;
+    }
+
+    .sv-question-view {
+        grid-column: 2/3;
+    }
+
+    .sv-question-edit {
+        grid-column: 3/4;
+    }
+
+    .sv-question-delete {
+        grid-column: 4/5;
+    }
+
+    i.fa {
+        width: 16px;
+        height: 16px;
+    }
+}

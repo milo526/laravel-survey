@@ -12,9 +12,7 @@ class QuestionController extends Controller
 {
     public function index(int $category)
     {
-        $category = Category::findOrFail($category);
-
-        return view('survey::categories.index', ['selected' => "categories.{$category->title}", 'category' => $category]);
+        return redirect()->route('survey::categories.show', $category);
     }
 
     public function create(int $category)
@@ -103,7 +101,7 @@ class QuestionController extends Controller
         return redirect()->route('survey::categories.questions.show', [$category, $question])->with('notification', ['type' => 'success', 'message' => 'Question edited.']);
     }
 
-    public function delete(int $category, int $question)
+    public function destroy(int $category, int $question)
     {
         $question = Question::findOrFail($question);
 

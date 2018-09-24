@@ -16,7 +16,7 @@ class CategoryController extends Controller
 
     public function create()
     {
-        return view('survey::categories.create', ['selected' => 'categories']);
+        return view('survey::categories.create', ['selected' => 'categories.create_new_category']);
     }
 
     public function store(Request $request)

@@ -4,21 +4,37 @@
     &:hover {
         @apply sv-outline-none;
     }
+}
 
-    &.sv-btn-primary {
-        @apply sv-bg-blue sv-text-white;
+.sv-btn-inline {
+    @apply sv-font-bold sv-rounded sv-no-underline;
+
+    &:hover {
+        @apply sv-outline-none;
     }
+}
 
-    &.sv-btn-primary:hover {
+.sv-btn-primary {
+    @apply sv-bg-blue sv-text-white;
+
+    &:hover {
         @apply sv-bg-blue-dark;
     }
+}
 
-    &.sv-btn-secondary {
-        @apply sv-bg-white sv-text-grey sv-border;
-    }
+.sv-btn-secondary {
+    @apply sv-bg-white sv-text-grey sv-border;
 
-    &.sv-btn-secondary:hover {
+    &:hover {
         @apply sv-text-grey-darker sv-border-grey-darker;
+    }
+}
+
+.sv-btn-danger {
+    @apply sv-bg-red sv-text-white;
+
+    &:hover {
+        @apply sv-bg-red-dark;
     }
 }
 
