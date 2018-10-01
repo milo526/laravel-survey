@@ -3,9 +3,12 @@
 namespace MCesar\Survey\Models;
 
 use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 use MCesar\Survey\Contracts\Question as QuestionContract;
 
 class Question extends Model implements QuestionContract
@@ -58,6 +61,7 @@ class Question extends Model implements QuestionContract
     {
         return $this->hasMany(config('survey.models.answer'));
     }
+
 
     public function getRequiredAttribute(): bool
     {
