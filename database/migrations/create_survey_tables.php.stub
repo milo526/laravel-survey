@@ -14,29 +14,29 @@ class CreateSurveyTables extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('title');
             $table->timestamps();
             $table->softDeletes();
         });
 
         Schema::create('questions', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('question');
             $table->string('type');
             $table->text('options')->nullable();
-            $table->integer('category_id')->unsigned();
+            $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
             $table->softDeletes();
         });
 
         Schema::create('answers', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('answer');
-            $table->integer('user_id')->unsigned();
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('question_id')->unsigned();
+            $table->unsignedBigInteger('question_id');
             $table->foreign('question_id')->references('id')->on('questions');
             $table->timestamps();
             $table->softDeletes();
